@@ -18,7 +18,7 @@
     <?php
     if (isset($_GET['name']) && isset($_GET['age'])) {
         $name = htmlspecialchars($_GET['name']);
-        $age = (int)$_GET['age'];
+        $age = (int)htmlspecialchars($_GET['age']);
 
         echo "<p>Привет, $name! Тебе $age лет.</p>";
 
