@@ -1,5 +1,15 @@
 <?php
-session_start(); // запускаем сессию
+if (session_status() == PHP_SESSION_NONE) {
+    session_set_cookie_params([
+    'lifetime' => 3600,
+    'path' => '/',
+    'domain' => $_SERVER['HTTP_HOST'],
+    'secure' => true,
+    'httponly' => true,
+    'samesite' => 'Strict'
+]);
+    session_start();
+}
 
 if (!isset($_SESSION['visits'])) {
     // Первый визит
@@ -10,6 +20,8 @@ if (!isset($_SESSION['visits'])) {
     $_SESSION['visits']++;
     $message = "С возвращением! Это ваш " . $_SESSION['visits'] . " визит.";
 }
+// Уничтожить сессию полностью
+//session_destroy();
 ?>
 <!DOCTYPE html>
 <html lang="ru">
